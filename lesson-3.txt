@@ -1,0 +1,48 @@
+1. Giải thích các câu lệnh:
+    - git commit --amend: Cho phép sửa lại commit gần nhất 
+    - git commit --amend-m”<message>”: Sửa message của commit gần nhất.
+    - git restore --staged <file>: Gỡ file ra khỏi Staging staged, đưa nó quay về working directory.
+    - git reset HEAD~1: Gỡ bỏ commit gần nhất và đưa thay đổi trong commit đó quay về staged.
+
+2. Các file theo từng vùng
+    a. Tạo 3 file: file1, file2, file3
+    - Working Directory: file1, file2, file3
+    - Staging Area: rỗng
+    - Respository: rỗng
+    b. git init
+    - Khởi tạo repo
+    c. git commit -m "init project"
+    - Thiếu git add . -> Không có file nào được add, commit này không chứa gì.
+    d. git add file1
+    - Staging Area: file1
+    - Working Directory: file1, file2, file3
+    e. git commit -m "add file"
+    - Commit file1
+    f. git add .
+    - Staging Area: file2, file3
+    g. git restore --staged file2
+    - Staging Area: file3
+    - Working Directory: file2 (đã bị gỡ khỏi staged)
+    h. git commit -m "add all files"
+    - Chỉ file3 được commit.
+    i. git reset HEAD~1
+    - Xóa commit "add all files", nhưng file3 vẫn ở vùng staged.
+    - Staging Area: file3
+    - Working Directory: file2, file3
+
+3. Các file theo từng vùng:
+    a. git init
+    - Khởi tạo repo
+    b. Tạo file: file1.txt, file2.txt, oops/file3.txt
+    - Working Directory: file1.txt, file2.txt, oops/file3.txt
+    c. Thêm file .gitignore với nội dung:
+    - file1.txt  
+    - oops/
+    d. Chạy lệnh git add .
+    - file1.txt bị ignore
+    - oops/file3.txt bị ignore
+    - file2.txt được add
+    e. Chạy lệnh: git commit -m"init project"
+    - Commit file2.txt
+    - Working Directory: file1.txt, file2.txt, oops/file3.txt
+    - Staging Area: rỗng
